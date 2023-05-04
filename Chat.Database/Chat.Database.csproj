@@ -22,7 +22,7 @@
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NodaTime" Version="6.0.7" />
 	</ItemGroup>
 
-	<ItemGroup>
+    <ItemGroup>
       <ProjectReference Include="..\Chat.Domain\Chat.Domain.csproj" />
     </ItemGroup>
 
