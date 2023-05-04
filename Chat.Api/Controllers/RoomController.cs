@@ -21,7 +21,7 @@ public class RoomController : ControllerBase
         return await _roomService.CreateRoom(room);
     }
 
-    [HttpGet("user/{id}")]
+    [HttpGet("users/{id}")]
     public async Task<IEnumerable<Room>> GetByUserId(int id)
     {
         return await _roomService.GetRoomsByUserId(id);
