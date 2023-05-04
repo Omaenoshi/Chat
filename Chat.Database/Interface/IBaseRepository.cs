@@ -6,4 +6,5 @@ public interface IBaseRepository<T>
     Task<T> GetById(int id);
     Task<IEnumerable<T>> GetAll();
     Task<int> DeleteById(int id);
+    Task<int> Update(T entity);
 }

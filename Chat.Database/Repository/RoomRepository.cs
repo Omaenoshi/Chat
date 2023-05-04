@@ -24,4 +24,9 @@ public class RoomRepository : IRoomRepository
     {
         throw new NotImplementedException();
     }
+
+    public Task<int> Update(Room entity)
+    {
+        throw new NotImplementedException();
+    }
 }

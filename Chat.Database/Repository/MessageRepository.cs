@@ -24,4 +24,9 @@ public class MessageRepository : IMessageRepository
     {
         throw new NotImplementedException();
     }
+
+    public Task<int> Update(Message entity)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -39,4 +39,9 @@ public class UserController : ControllerBase
     {
         return await _userService.DeleteUserById(id);
     }
+
+    public async Task<int> Update(User user)
+    {
+        return await _userService.UpdateUser(user);
+    }
 }

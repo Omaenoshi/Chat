@@ -24,4 +24,9 @@ public class UserRepository : IUserRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task<int> Update(User entity)
+    {
+        throw new NotImplementedException();
+    }
 }
