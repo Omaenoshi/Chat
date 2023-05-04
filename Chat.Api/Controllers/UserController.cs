@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Chat.Api.Controllers;
 
 [ApiController]
-[Route("/api/users")]
-public class UserController : Controller
+[Route("/api/[controller]")]
+public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
 
@@ -17,20 +17,20 @@ public class UserController : Controller
     }
 
     [HttpGet]
-    public Task<IEnumerable<User>> Get()
+    public async Task<IEnumerable<User>> Get()
     {
-        return _userService.GetUsers();
+        return await _userService.GetUsers();
     }
 
     [HttpGet("{id}")]
-    public Task<User> Get(int id)
+    public async Task<User> Get(int id)
     {
-        return _userService.GetUserById(id);
+        return await _userService.GetUserById(id);
     }
 
     [HttpPost]
-    public bool Post(User user)
+    public async Task<int> Post(User user)
     {
-        return _userService.CreateUser(user);
+        return await _userService.CreateUser(user);
     }
 }

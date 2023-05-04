@@ -5,7 +5,7 @@ namespace Chat.Database.Repository;
 
 public class MessageRepository : IMessageRepository
 {
-    public bool Create(Message entity)
+    public Task<int> Create(Message entity)
     {
         throw new NotImplementedException();
     }
@@ -20,7 +20,7 @@ public class MessageRepository : IMessageRepository
         throw new NotImplementedException();
     }
 
-    public bool Delete(Message entity)
+    public Task<int> Delete(Message entity)
     {
         throw new NotImplementedException();
     }

@@ -6,5 +6,5 @@ public interface IUserService
 {
     Task<IEnumerable<User>> GetUsers();
     Task<User> GetUserById(int id);
-    bool CreateUser(User user);
+    Task<int> CreateUser(User user);
 }

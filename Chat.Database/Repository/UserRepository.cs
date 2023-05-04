@@ -5,22 +5,22 @@ namespace Chat.Database.Repository;
 
 public class UserRepository : IUserRepository
 {
-    public bool Create(User entity)
+    public async Task<int> Create(User entity)
     {
         throw new NotImplementedException();
     }
 
-    public Task<User> GetById(int id)
+    public async Task<User> GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<User>> GetAll()
+    public async Task<IEnumerable<User>> GetAll()
     {
         throw new NotImplementedException();
     }
 
-    public bool Delete(User entity)
+    public async Task<int> Delete(User entity)
     {
         throw new NotImplementedException();
     }
