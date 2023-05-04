@@ -37,6 +37,6 @@ public class UserController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<int> Delete(int id)
     {
-        
+        return await _userService.DeleteUserById(id);
     }
 }
