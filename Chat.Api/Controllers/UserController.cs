@@ -1,13 +1,12 @@
-﻿using System.Net;
-using Chat.Domain;
+﻿using Chat.Domain;
 using Chat.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chat.Api.Controllers;
 
-[ApiController]
+
 [Route("/api/users")]
-public class UserController : ControllerBase
+public class UserController : Controller
 {
     private readonly IUserService _userService;
 
@@ -39,7 +38,7 @@ public class UserController : ControllerBase
     {
         return await _userService.DeleteUserById(id);
     }
-
+    [HttpGet]
     public async Task<int> Update(User user)
     {
         return await _userService.UpdateUser(user);

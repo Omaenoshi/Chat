@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Chat.Api.Controllers;
 
-[ApiController]
 [Route("/api/rooms")]
-public class RoomController : ControllerBase
+public class RoomController : Controller
 {
     private readonly IRoomService _roomService;
 

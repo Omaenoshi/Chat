@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Chat.Api.Controllers;
 
-[ApiController]
+
 [Route("/api/messages")]
-public class MessageController : ControllerBase
+public class MessageController : Controller
 {
     private readonly IMessageService _messageService;
 
@@ -14,7 +14,6 @@ public class MessageController : ControllerBase
     {
         _messageService = messageService;
     }
-
     [HttpGet("/rooms/{id}")]
     public async Task<IEnumerable<Message>> GetByRoomId(int id)
     {
