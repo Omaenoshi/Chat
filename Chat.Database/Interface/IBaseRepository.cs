@@ -3,7 +3,7 @@
 public interface IBaseRepository<T>
 {
     bool Create(T entity);
-    T GetById(int id);
-    IEnumerable<T> GetAll();
+    Task<T> GetById(int id);
+    Task<IEnumerable<T>> GetAll();
     bool Delete(T entity);
 }

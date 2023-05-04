@@ -10,12 +10,12 @@ public class RoomRepository : IRoomRepository
         throw new NotImplementedException();
     }
 
-    public Room GetById(int id)
+    public Task<Room> GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<Room> GetAll()
+    public Task<IEnumerable<Room>> GetAll()
     {
         throw new NotImplementedException();
     }

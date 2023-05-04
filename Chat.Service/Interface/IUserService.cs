@@ -4,5 +4,7 @@ namespace Chat.Service.Interface;
 
 public interface IUserService
 {
-    IEnumerable<User> GetUsers();
+    Task<IEnumerable<User>> GetUsers();
+    Task<User> GetUserById(int id);
+    bool CreateUser(User user);
 }

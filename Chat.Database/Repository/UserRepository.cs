@@ -10,12 +10,12 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public User GetById(int id)
+    public Task<User> GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<User> GetAll()
+    public Task<IEnumerable<User>> GetAll()
     {
         throw new NotImplementedException();
     }

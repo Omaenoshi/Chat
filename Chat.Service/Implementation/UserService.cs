@@ -13,8 +13,18 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public IEnumerable<User> GetUsers()
+    public Task<IEnumerable<User>> GetUsers()
     {
         return _userRepository.GetAll();
+    }
+
+    public Task<User> GetUserById(int id)
+    {
+        return _userRepository.GetById(id);
+    }
+
+    public bool CreateUser(User user)
+    {
+        return _userRepository.Create(user);
     }
 }

@@ -10,12 +10,12 @@ public class MessageRepository : IMessageRepository
         throw new NotImplementedException();
     }
 
-    public Message GetById(int id)
+    public Task<Message> GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<Message> GetAll()
+    public Task<IEnumerable<Message>> GetAll()
     {
         throw new NotImplementedException();
     }
