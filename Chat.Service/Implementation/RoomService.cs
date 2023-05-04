@@ -22,4 +22,10 @@ public class RoomService : IRoomService
     {
         return await _roomRepository.GetByUserId(id);
     }
+
+    public async Task<int> DeleteRoom(int id)
+    {
+        return await _roomRepository.DeleteById(id);
+    }
 }
+
