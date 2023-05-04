@@ -6,6 +6,8 @@ public class User
     public string Name { get; set; }
     public string Login { get; set; }
 
+    public ICollection<Room> Rooms { get; set; } = new List<Room>();
+
     public User(int id, string name, string login)
     {
         Id = id;

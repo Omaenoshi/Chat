@@ -1,6 +1,9 @@
-﻿namespace Chat.Service.Interface;
+﻿using Chat.Domain.Entity;
+
+namespace Chat.Service.Interface;
 
 public interface IRoomService
 {
-    
+    Task<int> CreateRoom(Room room);
+    Task<IEnumerable<Room>> GetRoomsByUserId(int id);
 }

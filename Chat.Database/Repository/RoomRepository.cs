@@ -25,7 +25,12 @@ public class RoomRepository : IRoomRepository
         throw new NotImplementedException();
     }
 
-    public Task<int> Update(Room entity)
+    public async Task<int> Update(Room entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<Room>> GetByUserId(int id)
     {
         throw new NotImplementedException();
     }
