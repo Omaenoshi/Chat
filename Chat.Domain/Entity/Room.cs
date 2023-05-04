@@ -2,9 +2,9 @@
 
 public class Room
 {
-    public int Id { get; }
-    public string Title { get; }
-    public ICollection<User> Users { get; }
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public ICollection<User> Users { get; set; }
 
     public Room(int id, string title, ICollection<User> users)
     {

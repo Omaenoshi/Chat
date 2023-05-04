@@ -2,8 +2,8 @@
 
 public class Message
 {
-    public int Id { get; }
-    public string Text { get; }
+    public int Id { get; set; }
+    public string Text { get; set; }
 
     public Message(int id, string text)
     {
