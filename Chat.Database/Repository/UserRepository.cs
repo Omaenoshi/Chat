@@ -20,7 +20,7 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public async Task<int> Delete(User entity)
+    public async Task<int> DeleteById(int id)
     {
         throw new NotImplementedException();
     }

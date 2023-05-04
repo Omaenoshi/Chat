@@ -27,4 +27,9 @@ public class UserService : IUserService
     {
         return await _userRepository.Create(user);
     }
+
+    public async Task<int> DeleteUserById(int id)
+    {
+        return await _userRepository.DeleteById(id);
+    }
 }

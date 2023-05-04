@@ -5,22 +5,22 @@ namespace Chat.Database.Repository;
 
 public class RoomRepository : IRoomRepository
 {
-    public Task<int> Create(Room entity)
+    public async Task<int> Create(Room entity)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Room> GetById(int id)
+    public async Task<Room> GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Room>> GetAll()
+    public async Task<IEnumerable<Room>> GetAll()
     {
         throw new NotImplementedException();
     }
 
-    public Task<int> Delete(Room entity)
+    public async Task<int> DeleteById(int id)
     {
         throw new NotImplementedException();
     }

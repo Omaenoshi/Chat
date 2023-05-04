@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Chat.Api.Controllers;
 
 [ApiController]
-[Route("/api/[controller]")]
+[Route("/api/users")]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -32,5 +32,11 @@ public class UserController : ControllerBase
     public async Task<int> Post(User user)
     {
         return await _userService.CreateUser(user);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<int> Delete(int id)
+    {
+        
     }
 }
