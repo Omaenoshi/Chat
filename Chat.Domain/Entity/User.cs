@@ -1,4 +1,4 @@
-﻿namespace Chat.Models;
+﻿namespace Chat.Domain.Entity;
 
 public class User
 {
