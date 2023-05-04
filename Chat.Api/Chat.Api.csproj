@@ -18,6 +18,16 @@
       </Content>
     </ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.9">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageReference Include="TourmalineCore.AspNetCore.JwtAuthentication.Core" Version="0.3.4" />
+	</ItemGroup>
+
     <ItemGroup>
       <ProjectReference Include="..\Chat.Domain\Chat.Domain.csproj" />
       <ProjectReference Include="..\Chat.Service\Chat.Service.csproj" />

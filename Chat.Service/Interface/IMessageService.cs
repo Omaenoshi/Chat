@@ -1,5 +1,5 @@
 ﻿using Chat.Database.Interface;
-using Chat.Domain.Entity;
+using Chat.Domain;
 
 namespace Chat.Service.Interface;
 

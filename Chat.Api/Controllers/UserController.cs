@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using Chat.Domain.Entity;
+using Chat.Domain;
 using Chat.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 

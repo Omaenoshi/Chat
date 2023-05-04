@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{83B9756A-8659-4642-B100-C087E22FAE97}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Domain", "Chat.Domain\Chat.Domain.csproj", "{FBA0043A-C82E-4D03-A473-949C9D65FC15}"
@@ -39,10 +42,10 @@ Global
 		{FB1A6BF8-1477-4EFB-A3F1-FEDB0E311FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB1A6BF8-1477-4EFB-A3F1-FEDB0E311FA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{FBA0043A-C82E-4D03-A473-949C9D65FC15} = {83B9756A-8659-4642-B100-C087E22FAE97}
-		{D94C76E0-99A8-4976-8E00-2225CD306988} = {4A71F014-58D2-464D-A818-8AEABC9375CD}
-		{DE32BD43-28F6-4FCD-877C-15F9EC2230B7} = {B86D6FD6-A048-4428-A37F-F146193EC6EC}
-		{FB1A6BF8-1477-4EFB-A3F1-FEDB0E311FA2} = {11A6DE7C-67CD-475D-85EE-261A128FA8ED}
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6F56FA6-24C2-4B46-B6C7-1794F71942A2}
 	EndGlobalSection
 EndGlobal
