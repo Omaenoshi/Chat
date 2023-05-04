@@ -13,4 +13,8 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Chat.Domain\Chat.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
