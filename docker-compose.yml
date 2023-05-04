@@ -1,0 +1,13 @@
+﻿version: "3.8"
+
+services:
+  db-debug:
+    image: postgres:13
+    restart: always
+    container_name: 'chat-db-debug'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ChatBase
+    ports:
+      - 5433:5432
