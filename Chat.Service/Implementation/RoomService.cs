@@ -27,5 +27,10 @@ public class RoomService : IRoomService
     {
         return await _roomRepository.DeleteById(id);
     }
+
+    public async Task<int> UpdateRoom(Room room)
+    {
+        return await _roomRepository.Update(room);
+    }
 }
 

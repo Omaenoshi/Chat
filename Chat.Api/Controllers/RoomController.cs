@@ -32,4 +32,10 @@ public class RoomController : ControllerBase
     {
         return await _roomService.DeleteRoomById(id);
     }
+
+    [HttpPut]
+    public async Task<int> Update(Room room)
+    {
+        return await _roomService.UpdateRoom(room);
+    }
 }
