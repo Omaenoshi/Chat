@@ -5,6 +5,7 @@ namespace Chat.Service.Interface;
 
 public interface IMessageService
 {
-    IEnumerable<Message> GetMessages(int roomId);
-    
+    Task<IEnumerable<Message>> GetMessagesByRoomId(int id);
+    Task<int> CreateMessage(Message message);
+    Task<int> DeleteMessageById(int id);
 }

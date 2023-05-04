@@ -29,4 +29,9 @@ public class MessageRepository : IMessageRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task<IEnumerable<Message>> GetByRoomId(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

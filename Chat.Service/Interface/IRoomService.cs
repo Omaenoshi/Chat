@@ -6,5 +6,5 @@ public interface IRoomService
 {
     Task<int> CreateRoom(Room room);
     Task<IEnumerable<Room>> GetRoomsByUserId(int id);
-    Task<int> DeleteRoom(int id);
+    Task<int> DeleteRoomById(int id);
 }

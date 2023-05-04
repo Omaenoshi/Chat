@@ -30,6 +30,6 @@ public class RoomController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<int> Delete(int id)
     {
-        return await _roomService.DeleteRoom(id);
+        return await _roomService.DeleteRoomById(id);
     }
 }
