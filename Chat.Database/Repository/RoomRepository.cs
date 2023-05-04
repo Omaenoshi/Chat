@@ -3,7 +3,7 @@ using Chat.Domain.Entity;
 
 namespace Chat.Database.Repository;
 
-public class RoomRepository : IBaseRepository<Room>
+public class RoomRepository : IRoomRepository
 {
     public bool Create(Room entity)
     {

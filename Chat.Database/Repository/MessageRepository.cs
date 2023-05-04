@@ -3,7 +3,7 @@ using Chat.Domain.Entity;
 
 namespace Chat.Database.Repository;
 
-public class MessageRepository : IBaseRepository<Message>
+public class MessageRepository : IMessageRepository
 {
     public bool Create(Message entity)
     {
