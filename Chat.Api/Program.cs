@@ -1,4 +1,6 @@
 using Chat.Database;
+using Chat.Service;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,15 @@ builder.Services.AddSwaggerGen(c =>
 var configuration = builder.Configuration;
 
 builder.Services.AddPersistence(configuration);
+builder.Services.Addapplication(configuration);
+
+builder.Services.AddMvc();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+    });
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -25,6 +36,9 @@ app.UseSwaggerUI(c =>
 });
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 

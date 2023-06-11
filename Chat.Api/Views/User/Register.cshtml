@@ -1,0 +1,41 @@
+﻿@model Chat.Api.ViewModels.RegisterModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Регистрация</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div>
+        <h4>Регистрация</h4>
+        <hr />
+        <div>
+            Имя
+            <div>
+                @Html.EditorFor(model => model.Name)
+            </div>
+        </div>
+        <div>
+            Логин
+            <div>
+                @Html.EditorFor(model => model.Login)
+            </div>
+        </div>
+
+        <div>
+            Пароль
+            <div>
+                @Html.EditorFor(model => model.Password)
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <input type="submit" value="Войти" />
+            </div>
+        </div>
+    </div>
+}

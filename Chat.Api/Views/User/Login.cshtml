@@ -1,0 +1,35 @@
+﻿@model Chat.Api.ViewModels.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Вход на сайт</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div>
+        <h4>Вход на сайт</h4>
+        <hr />
+        <div>
+            Логин
+            <div>
+                @Html.EditorFor(model => model.Login)
+            </div>
+        </div>
+
+        <div>
+            Пароль
+            <div>
+                @Html.EditorFor(model => model.Password)
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <input type="submit" value="Войти" />
+            </div>
+        </div>
+    </div>
+}

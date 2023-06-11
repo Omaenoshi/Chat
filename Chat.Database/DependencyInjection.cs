@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Chat.Database.Interface;
+using Chat.Database.Repository;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +19,7 @@ namespace Chat.Database
                     o => o.UseNodaTime());
             });
             services.AddScoped<ChatDbContext>();
+            services.AddTransient<IUserRepository, UserRepository>();
             return services;
         }
     }
