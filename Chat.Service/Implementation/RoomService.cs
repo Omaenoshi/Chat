@@ -32,5 +32,10 @@ public class RoomService : IRoomService
     {
         return await _roomRepository.Update(room);
     }
+
+    public async Task<IEnumerable<Room>> GetRooms()
+    {
+        return await _roomRepository.GetAll();
+    }
 }
 
