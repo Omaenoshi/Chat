@@ -8,4 +8,5 @@ public interface IRoomService
     Task<IEnumerable<Room>> GetRoomsByUserId(int id);
     Task<int> DeleteRoomById(int id);
     Task<int> UpdateRoom(Room room);
+    Task<IEnumerable<Room>> GetRooms();
 }

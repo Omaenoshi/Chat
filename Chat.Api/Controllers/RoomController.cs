@@ -14,6 +14,12 @@ public class RoomController : Controller
         _roomService = roomService;
     }
 
+    [HttpGet]
+    public async Task<IEnumerable<Room>> Get()
+    {
+        return await _roomService.GetRooms();
+    }
+
     [HttpPost]
     public async Task<int> Create(Room room)
     {

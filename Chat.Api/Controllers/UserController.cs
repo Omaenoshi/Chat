@@ -95,7 +95,7 @@ public class UserController : Controller
         return RedirectToAction("Login", "User");
     }
 
-    [HttpGet("get-all")]
+    [HttpGet]
     public async Task<IEnumerable<User>> Get()
     {
         return await _userService.GetUsers();
@@ -107,18 +107,12 @@ public class UserController : Controller
         return await _userService.GetUserById(id);
     }
 
-    [HttpPost]
-    public async Task<int> Post(User user)
-    {
-        return await _userService.CreateUser(user);
-    }
-
     [HttpDelete("{id}")]
     public async Task<int> Delete(int id)
     {
         return await _userService.DeleteUserById(id);
     }
-    [HttpGet]
+    [HttpPut]
     public async Task<int> Update(User user)
     {
         return await _userService.UpdateUser(user);
