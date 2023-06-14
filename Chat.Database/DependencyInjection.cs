@@ -20,6 +20,8 @@ namespace Chat.Database
             });
             services.AddScoped<ChatDbContext>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IRoomRepository, RoomRepository>();
+            services.AddTransient<IMessageRepository, MessageRepository>();
             return services;
         }
     }

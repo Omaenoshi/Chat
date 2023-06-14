@@ -1,7 +1,6 @@
-﻿using Chat.Database;
-using Chat.Domain;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Chat.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Chat.Api.Controllers;
@@ -10,18 +9,13 @@ namespace Chat.Api.Controllers;
 [Route("/api/messages")]
 public class MessageController : Controller
 {
-    //private readonly IMessageService _messageService;
+    private readonly IMessageService _messageService;
 
-    //public MessageController(IMessageService messageService)
-    //{
-    //    _messageService = messageService;
-    //}
-    private readonly ChatDbContext _context;
-
-    public MessageController(ChatDbContext context)
+    public MessageController(IMessageService messageService)
     {
-        _context = context;
+        _messageService = messageService;
     }
+
     [Authorize]
     [HttpGet("chat/{roomId}")]
     public IActionResult CreateMessage([FromRoute] int roomId)
@@ -35,29 +29,7 @@ public class MessageController : Controller
     public async Task<IActionResult> CreateMessage([FromRoute] int roomId, int userId, string text)
     {
         ClaimsIdentity ident = HttpContext.User.Identity as ClaimsIdentity;
-        var user = _context.Users.FirstOrDefault(x => x.Id == int.Parse(ident.Claims.ToArray()[1].Value));
-        var room = _context.Rooms.FirstOrDefault(x => x.Id == roomId);
-        var message = new Message { Room = room, Text = text, User = user };
-        _context.Messages.Add(message);
-        await _context.SaveChangesAsync();
+        await _messageService.CreateMessage(int.Parse(ident.Claims.ToArray()[1].Value), roomId, text);
         return View();
     }
-
-    //[HttpGet("/rooms/{id}")]
-    //public async Task<IEnumerable<Message>> GetByRoomId(int id)
-    //{
-    //    return await _messageService.GetMessagesByRoomId(id);
-    //}
-
-    //[HttpPost]
-    //public async Task<int> Create(Message message)
-    //{
-    //    return await _messageService.CreateMessage(message);
-    //}
-
-    //[HttpDelete("{id}")]
-    //public async Task<int> Delete(int id)
-    //{
-    //    return await _messageService.DeleteMessageById(id);
-    //}
 }

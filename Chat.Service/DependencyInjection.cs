@@ -10,6 +10,8 @@ namespace Chat.Service
         public static IServiceCollection Addapplication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRoomService, RoomService>();
+            services.AddTransient<IMessageService, MessageService>();
             return services;
         }
     }

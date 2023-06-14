@@ -1,4 +1,5 @@
-﻿using Chat.Database.Interface;
+﻿using Chat.Database;
+using Chat.Database.Interface;
 using Chat.Domain;
 using Chat.Service.Interface;
 
@@ -7,6 +8,7 @@ namespace Chat.Service.Implementation;
 public class RoomService : IRoomService
 {
     private readonly IRoomRepository _roomRepository;
+    
 
     public RoomService(IRoomRepository roomRepository)
     {

@@ -22,7 +22,17 @@ public class MessageService : IMessageService
     {
         return await _messageRepository.Create(message);
     }
-    
+
+    public Task<int> CreateMessage(int userId, int roomId, string text)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<int> Create(int userId, int roomId, string text)
+    {
+        return await _messageRepository.Create(userId, roomId, text);
+    }
+
     public async Task<int> DeleteMessageById(int id)
     {
         return await _messageRepository.DeleteById(id);
