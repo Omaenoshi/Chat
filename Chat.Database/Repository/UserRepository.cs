@@ -42,6 +42,11 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
+    public async Task<User?> JoinToRoom(Room room, User user)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<User?> GetByLoginAndPassword(string login, string password)
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.Login == login && u.Password == password);

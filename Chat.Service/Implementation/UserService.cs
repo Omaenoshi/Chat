@@ -47,6 +47,11 @@ public class UserService : IUserService
         return await _userRepository.Update(user);
     }
 
+    public async Task<User?> JoinToRoom(int roomId, int userId)
+    {
+        return await _userRepository.JoinToRoom(new Room { Id = roomId }, new User { Id = userId });
+    }
+
     private async Task Authenticate(HttpContext context, string userName)
     {
         var claims = new List<Claim>

@@ -10,4 +10,5 @@ public interface IUserService
     Task<int> CreateUser(User user);
     Task<int> DeleteUserById(int id);
     Task<int> UpdateUser(User user);
+    Task<User?> JoinToRoom(int roomId, int userId);
 }

@@ -1,6 +1,7 @@
 ﻿using Chat.Database.Interface;
 using Chat.Domain;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Chat.Database.Repository;
 
@@ -15,7 +16,8 @@ public class RoomRepository : IRoomRepository
 
     public async Task<int> Create(Room entity)
     {
-        throw new NotImplementedException();
+        _context.Rooms.Add(entity);
+        return await _context.SaveChangesAsync();
     }
 
     public async Task<Room> GetById(int id)

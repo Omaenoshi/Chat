@@ -1,6 +1,24 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@page
+@using Chat.Api.Pages.Shared
+@model Chat.Api.Pages.Shared.IndexModel
+
 @{
-    <div>Main Page</div>
+
 }
+
+<p>
+    <a asp-page="Index">Чат-комнаты</a>
+</p>
+<button type="button" onclick="location.href='@Url.Action("create","Room")'">
+    Создать комнату
+</button>
+<div>
+    @foreach (var chatRoom in IndexModel.Rooms)
+    {
+        <div>
+            <h4>@chatRoom.Title</h4>
+            <span>Количество участников: @chatRoom.Users.Count</span>
+            <button type="button" onclick="location.href='@Url.Action("create","Room")'">Присоединиться</button>
+        </div>
+    }
+</div>
