@@ -18,9 +18,9 @@ public class MessageController : Controller
 
     [Authorize]
     [HttpGet("chat/{roomId}")]
-    public IActionResult CreateMessage([FromRoute] int roomId)
+    public async Task<IActionResult> CreateMessage([FromRoute] int roomId)
     {
-        return View();
+        return View(await _messageService.GetMessagesByRoomId(roomId));
     }
 
     [Authorize]

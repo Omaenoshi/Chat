@@ -23,9 +23,9 @@ public class MessageService : IMessageService
         return await _messageRepository.Create(message);
     }
 
-    public Task<int> CreateMessage(int userId, int roomId, string text)
+    public async Task<int> CreateMessage(int userId, int roomId, string text)
     {
-        throw new NotImplementedException();
+        return await _messageRepository.Create(userId, roomId, text);
     }
 
     public async Task<int> DeleteMessageById(int id)
