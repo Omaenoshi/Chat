@@ -1,5 +1,5 @@
-﻿using Chat.Domain;
-using Chat.Service.Interface;
+﻿using Chat.Api.Pages.Shared;
+using Chat.Database;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chat.Api.Controllers;
@@ -7,40 +7,53 @@ namespace Chat.Api.Controllers;
 [Route("/api/rooms")]
 public class RoomController : Controller
 {
-    private readonly IRoomService _roomService;
+    //private readonly IRoomService _roomService;
 
-    public RoomController(IRoomService roomService)
+    //public RoomController(IRoomService roomService)
+    //{
+    //    _roomService = roomService;
+    //}
+
+    private readonly ChatDbContext _context;
+
+    public RoomController(ChatDbContext context)
     {
-        _roomService = roomService;
+        _context = context;
     }
 
-    [HttpGet]
-    public async Task<IEnumerable<Room>> Get()
+    [HttpGet("index")]
+    public IActionResult Index()
     {
-        return await _roomService.GetRooms();
+        return View(new IndexModel(_context));
     }
 
-    [HttpPost]
-    public async Task<int> Create(Room room)
-    {
-        return await _roomService.CreateRoom(room);
-    }
+    //[HttpGet]
+    //public async Task<IEnumerable<Room>> Get()
+    //{
+    //    return await _roomService.GetRooms();
+    //}
 
-    [HttpGet("users/{id}")]
-    public async Task<IEnumerable<Room>> GetByUserId(int id)
-    {
-        return await _roomService.GetRoomsByUserId(id);
-    }
+    //[HttpPost]
+    //public async Task<int> Create(Room room)
+    //{
+    //    return await _roomService.CreateRoom(room);
+    //}
 
-    [HttpDelete("{id}")]
-    public async Task<int> Delete(int id)
-    {
-        return await _roomService.DeleteRoomById(id);
-    }
+    //[HttpGet("users/{id}")]
+    //public async Task<IEnumerable<Room>> GetByUserId(int id)
+    //{
+    //    return await _roomService.GetRoomsByUserId(id);
+    //}
 
-    [HttpPut]
-    public async Task<int> Update(Room room)
-    {
-        return await _roomService.UpdateRoom(room);
-    }
+    //[HttpDelete("{id}")]
+    //public async Task<int> Delete(int id)
+    //{
+    //    return await _roomService.DeleteRoomById(id);
+    //}
+
+    //[HttpPut]
+    //public async Task<int> Update(Room room)
+    //{
+    //    return await _roomService.UpdateRoom(room);
+    //}
 }
