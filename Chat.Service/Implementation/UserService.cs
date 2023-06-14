@@ -27,6 +27,11 @@ public class UserService : IUserService
         return await _userRepository.GetById(id);
     }
 
+    public async Task<User?> GetUserByLoginAndPassword(string login, string password)
+    {
+        return await _userRepository.GetByLoginAndPassword(login, password);
+    }
+
     public async Task<int> CreateUser(User user)
     {
         return await _userRepository.Create(user);

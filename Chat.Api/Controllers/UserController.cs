@@ -1,27 +1,22 @@
 ﻿using System.Security.Claims;
 using Chat.Api.ViewModels;
-using Chat.Database;
 using Chat.Domain;
 using Chat.Service.Interface;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Chat.Api.Controllers;
 
 [Route("/api/users")]
 public class UserController : Controller
 {
-    private readonly ChatDbContext _db;
     private readonly IUserService _userService;
 
-    public UserController(IUserService userService, ChatDbContext context)
+    public UserController(IUserService userService)
     {
         _userService = userService;
-        _db = context;
     }
-
 
     [HttpGet("login")]
     public IActionResult Login()
@@ -30,19 +25,15 @@ public class UserController : Controller
     }
 
     [HttpPost("login")]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginModel model)
     {
-        Console.WriteLine("Entered!");
         if (ModelState.IsValid)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Login == model.Login && u.Password == model.Password);
-            Console.WriteLine(user.Login);
+            var user = await _userService.GetUserByLoginAndPassword(model.Login, model.Password);
             if (user != null)
             {
                 await Authenticate(model.Login, user.Id);
-
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Room");
             }
 
             ModelState.AddModelError("", "Некорректные логин и(или) пароль");
@@ -58,19 +49,16 @@ public class UserController : Controller
     }
 
     [HttpPost("register")]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(RegisterModel model)
     {
         if (ModelState.IsValid)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Login == model.Login);
+            var user = await _userService.GetUserByLoginAndPassword(model.Login, model.Password);
             if (user == null)
             {
-                var userId = _db.Users.Add(new User
-                    { Name = model.Name, Login = model.Login, Password = model.Password });
-                await _db.SaveChangesAsync();
+                var userId = await _userService.CreateUser(new User() {Login = model.Login, Name = model.Name, Password = model.Password});
 
-                await Authenticate(model.Login, userId.Entity.Id);
+                await Authenticate(model.Login, userId);
 
                 return RedirectToAction("Index", "Home");
             }
