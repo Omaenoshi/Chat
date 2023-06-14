@@ -6,10 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-});
+builder.Services.AddSwaggerGen(c => { c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()); });
 
 var configuration = builder.Configuration;
 
@@ -19,9 +16,7 @@ builder.Services.Addapplication(configuration);
 builder.Services.AddMvc();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-    });
+    .AddCookie(options => { });
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
@@ -30,11 +25,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/myApi/swagger/v1/swagger.json", "V1 Docs");
-
-});
+app.UseSwaggerUI(c => { c.SwaggerEndpoint("/myApi/swagger/v1/swagger.json", "V1 Docs"); });
 
 app.UseRouting();
 

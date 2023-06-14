@@ -1,9 +1,11 @@
 ﻿using Chat.Api.Pages.Shared;
 using Chat.Service.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chat.Api.Controllers;
 
+[Authorize]
 [Route("/api/rooms")]
 public class RoomController : Controller
 {
@@ -14,7 +16,6 @@ public class RoomController : Controller
         _roomService = roomService;
     }
 
-    
 
     [HttpGet("index")]
     public async Task<IActionResult> Index()

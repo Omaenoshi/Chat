@@ -6,7 +6,9 @@
 
 }
 
-<p><a asp-page="Index">Чат-комнаты</a></p>
+<p>
+    <a asp-page="Index">Чат-комнаты</a>
+</p>
 <div>
     @foreach (var chatRoom in IndexModel.Rooms)
     {
@@ -17,4 +19,3 @@
         </div>
     }
 </div>
-

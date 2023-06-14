@@ -12,18 +12,6 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
 
-    private async Task Authenticate(HttpContext context, string userName)
-    {
-
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
-        };
-
-        ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-
-        await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
-    }
     public UserService(IUserRepository userRepository)
     {
         _userRepository = userRepository;
@@ -52,5 +40,18 @@ public class UserService : IUserService
     public async Task<int> UpdateUser(User user)
     {
         return await _userRepository.Update(user);
+    }
+
+    private async Task Authenticate(HttpContext context, string userName)
+    {
+        var claims = new List<Claim>
+        {
+            new(ClaimsIdentity.DefaultNameClaimType, userName)
+        };
+
+        var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+            ClaimsIdentity.DefaultRoleClaimType);
+
+        await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
     }
 }

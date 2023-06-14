@@ -11,6 +11,7 @@ public class MessageRepository : IMessageRepository
     {
         _context = context;
     }
+
     public async Task<int> Create(int userId, int roomId, string text)
     {
         var user = _context.Users.FirstOrDefault(x => x.Id == userId);

@@ -1,7 +1,6 @@
-﻿namespace Chat.Domain
+﻿namespace Chat.Domain;
+
+public interface IIdentityEntity
 {
-    public interface IIdentityEntity
-    {
-        public long Id { get; }
-    }
+    public long Id { get; }
 }

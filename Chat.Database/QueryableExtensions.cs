@@ -1,33 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Chat.Domain;
+﻿using Chat.Domain;
+using Microsoft.EntityFrameworkCore;
 
-namespace Chat.Database
+namespace Chat.Database;
+
+public static class QueryableExtensions
 {
-    public static class QueryableExtensions
+    public static IQueryable<TEntity> QueryableAsNoTracking<TEntity>(this DbContext context)
+        where TEntity : class
     {
-        public static IQueryable<TEntity> QueryableAsNoTracking<TEntity>(this DbContext context)
-            where TEntity : class
-        {
-            return context.Queryable<TEntity>().AsNoTracking();
-        }
+        return context.Queryable<TEntity>().AsNoTracking();
+    }
 
-        public static IQueryable<TEntity> Queryable<TEntity>(this DbContext context)
-            where TEntity : class
-        {
-            return context.Set<TEntity>();
-        }
+    public static IQueryable<TEntity> Queryable<TEntity>(this DbContext context)
+        where TEntity : class
+    {
+        return context.Set<TEntity>();
+    }
 
-        public static async Task<TEntity> GetByIdAsync<TEntity>(this IQueryable<TEntity> queryable, long id)
-            where TEntity : class, IIdentityEntity
-        {
-            var entity = await queryable.SingleOrDefaultAsync(x => x.Id == id);
+    public static async Task<TEntity> GetByIdAsync<TEntity>(this IQueryable<TEntity> queryable, long id)
+        where TEntity : class, IIdentityEntity
+    {
+        var entity = await queryable.SingleOrDefaultAsync(x => x.Id == id);
 
-            if (entity == null)
-            {
-                throw new Exception("Entity does not exits");
-            }
+        if (entity == null) throw new Exception("Entity does not exits");
 
-            return entity;
-        }
+        return entity;
     }
 }

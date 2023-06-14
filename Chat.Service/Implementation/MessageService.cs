@@ -28,13 +28,13 @@ public class MessageService : IMessageService
         throw new NotImplementedException();
     }
 
-    public async Task<int> Create(int userId, int roomId, string text)
-    {
-        return await _messageRepository.Create(userId, roomId, text);
-    }
-
     public async Task<int> DeleteMessageById(int id)
     {
         return await _messageRepository.DeleteById(id);
+    }
+
+    public async Task<int> Create(int userId, int roomId, string text)
+    {
+        return await _messageRepository.Create(userId, roomId, text);
     }
 }

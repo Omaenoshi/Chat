@@ -4,25 +4,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Chat.Database
+namespace Chat.Database;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+        services.AddDbContext<ChatDbContext>(options =>
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-
-            services.AddDbContext<ChatDbContext>(options =>
-            {
-
-                options.UseNpgsql(connectionString,
-                    o => o.UseNodaTime());
-            });
-            services.AddScoped<ChatDbContext>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IRoomRepository, RoomRepository>();
-            services.AddTransient<IMessageRepository, MessageRepository>();
-            return services;
-        }
+            options.UseNpgsql(connectionString,
+                o => o.UseNodaTime());
+        });
+        services.AddScoped<ChatDbContext>();
+        services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<IRoomRepository, RoomRepository>();
+        services.AddTransient<IMessageRepository, MessageRepository>();
+        return services;
     }
 }

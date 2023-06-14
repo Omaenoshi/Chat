@@ -1,20 +1,20 @@
-﻿using Chat.Domain;
-using Chat.Service.Interface;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+﻿using System.Security.Claims;
+using Chat.Api.ViewModels;
 using Chat.Database;
+using Chat.Domain;
+using Chat.Service.Interface;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chat.Api.Controllers;
 
-
 [Route("/api/users")]
 public class UserController : Controller
 {
-    private readonly IUserService _userService;
     private readonly ChatDbContext _db;
+    private readonly IUserService _userService;
 
     public UserController(IUserService userService, ChatDbContext context)
     {
@@ -22,20 +22,21 @@ public class UserController : Controller
         _db = context;
     }
 
-    
+
     [HttpGet("login")]
     public IActionResult Login()
     {
         return View();
     }
+
     [HttpPost("login")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Login(ViewModels.LoginModel model)
+    public async Task<IActionResult> Login(LoginModel model)
     {
         Console.WriteLine("Entered!");
         if (ModelState.IsValid)
         {
-            User user = await _db.Users.FirstOrDefaultAsync(u => u.Login == model.Login && u.Password == model.Password);
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Login == model.Login && u.Password == model.Password);
             Console.WriteLine(user.Login);
             if (user != null)
             {
@@ -43,8 +44,10 @@ public class UserController : Controller
 
                 return RedirectToAction("Index", "Home");
             }
+
             ModelState.AddModelError("", "Некорректные логин и(или) пароль");
         }
+
         return View(model);
     }
 
@@ -56,39 +59,42 @@ public class UserController : Controller
 
     [HttpPost("register")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Register(ViewModels.RegisterModel model)
+    public async Task<IActionResult> Register(RegisterModel model)
     {
         if (ModelState.IsValid)
         {
-            User user = await _db.Users.FirstOrDefaultAsync(u => u.Login == model.Login);
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Login == model.Login);
             if (user == null)
             {
-                var userId = _db.Users.Add(new User { Name = model.Name, Login = model.Login, Password = model.Password });
+                var userId = _db.Users.Add(new User
+                    { Name = model.Name, Login = model.Login, Password = model.Password });
                 await _db.SaveChangesAsync();
 
                 await Authenticate(model.Login, userId.Entity.Id);
 
                 return RedirectToAction("Index", "Home");
             }
-            else
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+
+            ModelState.AddModelError("", "Некорректные логин и(или) пароль");
         }
+
         return View(model);
     }
 
     private async Task Authenticate(string userName, int userId)
     {
-        
         var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName),
-                new Claim("UsedId", userId.ToString())
-            };
-        
-        ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-        
+        {
+            new(ClaimsIdentity.DefaultNameClaimType, userName),
+            new("UsedId", userId.ToString())
+        };
+
+        var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+            ClaimsIdentity.DefaultRoleClaimType);
+
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
     }
+
     [HttpGet("logout")]
     public async Task<IActionResult> Logout()
     {
@@ -113,6 +119,7 @@ public class UserController : Controller
     {
         return await _userService.DeleteUserById(id);
     }
+
     [HttpPut]
     public async Task<int> Update(User user)
     {
