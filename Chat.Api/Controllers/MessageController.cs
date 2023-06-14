@@ -1,6 +1,8 @@
 ﻿using Chat.Database;
 using Chat.Domain;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Chat.Api.Controllers;
 
@@ -20,17 +22,20 @@ public class MessageController : Controller
     {
         _context = context;
     }
-
+    [Authorize]
     [HttpGet("chat/{roomId}")]
     public IActionResult CreateMessage([FromRoute] int roomId)
     {
-        return View(roomId);
-    }
+        
 
+        return View();
+    }
+    [Authorize]
     [HttpPost("chat/{roomId}")]
-    public async Task<IActionResult> CreateMessage([FromRoute] int roomId, string text, int userId = 1)
+    public async Task<IActionResult> CreateMessage([FromRoute] int roomId, int userId, string text)
     {
-        var user = _context.Users.FirstOrDefault(x => x.Id == userId);
+        ClaimsIdentity ident = HttpContext.User.Identity as ClaimsIdentity;
+        var user = _context.Users.FirstOrDefault(x => x.Id == int.Parse(ident.Claims.ToArray()[1].Value));
         var room = _context.Rooms.FirstOrDefault(x => x.Id == roomId);
         var message = new Message { Room = room, Text = text, User = user };
         _context.Messages.Add(message);

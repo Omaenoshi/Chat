@@ -39,7 +39,7 @@ public class UserController : Controller
             Console.WriteLine(user.Login);
             if (user != null)
             {
-                await Authenticate(model.Login);
+                await Authenticate(model.Login, user.Id);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -63,10 +63,10 @@ public class UserController : Controller
             User user = await _db.Users.FirstOrDefaultAsync(u => u.Login == model.Login);
             if (user == null)
             {
-                _db.Users.Add(new User { Name = model.Name, Login = model.Login, Password = model.Password });
+                var userId = _db.Users.Add(new User { Name = model.Name, Login = model.Login, Password = model.Password });
                 await _db.SaveChangesAsync();
 
-                await Authenticate(model.Login);
+                await Authenticate(model.Login, userId.Entity.Id);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -76,12 +76,13 @@ public class UserController : Controller
         return View(model);
     }
 
-    private async Task Authenticate(string userName)
+    private async Task Authenticate(string userName, int userId)
     {
         
         var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userName),
+                new Claim("UsedId", userId.ToString())
             };
         
         ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

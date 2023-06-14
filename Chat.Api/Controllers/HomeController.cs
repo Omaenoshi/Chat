@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Chat.Api.Controllers
 {
@@ -10,6 +11,7 @@ namespace Chat.Api.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+
             return View();
         }
     }
