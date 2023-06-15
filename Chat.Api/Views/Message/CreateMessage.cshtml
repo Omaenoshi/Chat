@@ -3,52 +3,154 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    <h2>Чат</h2>
-    <div>
-        @foreach(var message in (IEnumerable<Message>)Model)
-        {
-            <div>
-                <h5>@message.User.Login</h5>
-                <div>@message.Text</div>
-            </div>
-        }
-    </div>
-    <div id="messages">
-        <input id="sendmessage" type="button" value="Send!" />
-        <input id="messageTextInput" type="text" />
-    </div>
+    <html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Chat App</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #f6f6f6;
+                font-family: Arial, sans-serif;
+            }
 
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px;
+                background-color: #000;
+                color: #fff;
+            }
+
+                .header h1 {
+                    margin: 0;
+                }
+
+            .message-container {
+                margin: 10px;
+                overflow: auto;
+            }
+
+            .message-box {
+                display: flex;
+                margin-bottom: 10px;
+                background-color: #fff;
+                border-radius: 5px;
+                padding: 10px;
+            }
+
+                .message-box p {
+                    margin: 0;
+                }
+
+                .message-box .user {
+                    color: #000;
+                    font-weight: bold;
+                    margin-right: 10px;
+                }
+
+            .messages {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+                background-color: #eee;
+                bottom: 0;
+                position: fixed;
+                width: 100%;
+            }
+
+                .messages input {
+                    flex: 1;
+                    margin-right: 10px;
+                    padding: 10px;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    outline: none;
+                }
+
+            #sendmessage {
+                    display: inline-block;
+                    padding: 8px 20px;
+                    background-color: #44c767;
+                    color: #ffffff;
+                    text-align: center;
+                    font-size: 18px;
+                    font-weight: bold;
+                    border-radius: 5px;
+                    border: none;
+                    cursor: pointer;
+                    box-shadow: 0px 4px #2e5d6d;
+                    transition: box-shadow 0.3s ease-in-out;
+                }
+
+                #sendmessage:hover {
+                    background-color: #5cbf2a;
+                    box-shadow: 0px 4px #3d8a10;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="message-container" class="message-container">
+            @foreach (var message in (IEnumerable<Message>)Model)
+            {
+                <div class="message-box">
+                    <p>
+                        <span class="user">@message.User.Login</span>
+                        @message.Text
+                    </p>
+                </div>
+            }
+        </div>
+
+    <div class="messages">
+        <input type="text" id="messageTextInput" type="text" placeholder="Type your message here..." />
+        <input id="sendmessage" type="button" value="Send"></input>
+    </div>
+        
     <script>
-        let url = window.location.href;
-        var socket = new WebSocket(url.replace("https", "wss"));
-        socket.onopen = function (event) {
-            console.log("WebSocket opened.");
-        };
-        socket.onmessage = function (event) {
-            console.log("WebSocket message received:", event.data);
-            let data = JSON.parse(event.data);
-            let messages = document.getElementById("messages");
+            let url = window.location.href;
+            var socket = new WebSocket(url.replace("https", "wss"));
+            socket.onopen = function (event) {
+                console.log("WebSocket opened.");
+            };
+            socket.onmessage = function (event) {
+                console.log("WebSocket message received:", event.data);
+                let data = JSON.parse(event.data);
+                let messages = document.getElementById("messages");
+                let messages1 = document.getElementById("message-container");
 
-            let username = document.createElement("h5");
-            username.innerText = data.username;
-            let text = document.createElement("div");
-            text.innerText = data.message;
+                var messageBox = document.createElement("div");
+                messageBox.classList.add("message-box");
+                var messageText = document.createTextNode(data.message);
+                var userName = document.createElement(data.username);
+                userName.classList.add("user");
+                userName.textContent = data.username;
+                var messageP = document.createElement("p");
+                messageP.appendChild(userName);
+                messageP.appendChild(messageText);
+                messageBox.appendChild(messageP);
 
-            messages.appendChild(username);
-            messages.appendChild(text);
-        };
-        socket.onclose = function (event) {
-            console.log("WebSocket closed.");
-        };
-        socket.onerror = function(error) {
-            console.log('WebSocket error:', error);
-        };
+                messages1.appendChild(messageBox);
+            };
+            socket.onclose = function (event) {
+                console.log("WebSocket closed.");
+            };
+            socket.onerror = function (error) {
+                console.log('WebSocket error:', error);
+            };
 
-        document.getElementById("sendmessage").addEventListener("click", function () {
-            let textElement = document.getElementById("messageTextInput");
-            let text = textElement.value;
-            socket.send(text);
-            textElement.value = '';
-        });
-    </script>
+            document.getElementById("sendmessage").addEventListener("click", function () {
+                let textElement = document.getElementById("messageTextInput");
+                let text = textElement.value;
+                socket.send(text);
+                textElement.value = '';
+            });
+        </script>
+    </body>
+    </html>
 }
