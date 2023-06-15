@@ -23,13 +23,12 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
+app.UseWebSockets();
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseSwaggerUI(c => { c.SwaggerEndpoint("/myApi/swagger/v1/swagger.json", "V1 Docs"); });
-
-app.UseWebSockets();
-app.UseMiddleware<WebSocketMiddleware>();
 
 app.UseRouting();
 

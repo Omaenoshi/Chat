@@ -19,24 +19,25 @@
     </div>
 
     <script>
-        let webSocket
-        var getWebSocketMessages = function (onMessageReceived) {
-            let url = window.location.href
-            webSocket = new WebSocket(url.replace("https", "ws"));
-
-            webSocket.onmessage = onMessageReceived;
+        let url = window.location.href;
+        var socket = new WebSocket(url.replace("https", "wss"));
+        socket.onopen = function (event) {
+            console.log("WebSocket opened.");
         };
-
-        let ulElement = document.getElementById('chatMessages');
-
-        getWebSocketMessages(function (message) {
-            ulElement.innerHTML = ulElement.innerHTML += `<li>${message.data}</li>`
-        });
+        socket.onmessage = function (event) {
+            console.log("WebSocket message received:", event.data);
+        };
+        socket.onclose = function (event) {
+            console.log("WebSocket closed.");
+        };
+        socket.onerror = function(error) {
+            console.log('WebSocket error:', error);
+        };
 
         document.getElementById("sendmessage").addEventListener("click", function () {
             let textElement = document.getElementById("messageTextInput");
             let text = textElement.value;
-            webSocket.send(text);
+            socket.send(text);
             textElement.value = '';
         });
     </script>

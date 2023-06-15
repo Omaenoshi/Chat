@@ -12,6 +12,8 @@ public static class DependencyInjection
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<IRoomService, RoomService>();
         services.AddTransient<IMessageService, MessageService>();
+        services.AddTransient<WebSocketHandler, WebSocketHandler>();
+        services.AddTransient<WebSocketConnectionManager, WebSocketConnectionManager>();
         return services;
     }
 }
