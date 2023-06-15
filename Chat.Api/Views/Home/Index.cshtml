@@ -87,7 +87,7 @@
                 <li>
                     <h4>@chatRoom.Title</h4>
                     <span>Количество участников: @chatRoom.Users.Count</span>
-                    <button class="join-button">Присоединиться</button>
+                    <button class="join-button" onclick="location.href='@Url.Action("CreateMessage","Message", new { roomId = chatRoom.Id })'">Присоединиться</button>
                 </li>
             }
         </ul>
