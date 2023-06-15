@@ -42,9 +42,4 @@ public class UserController : Controller
     {
         return await _userService.UpdateUser(user);
     }
-
-    public async Task<User?> JoinToRoom(int roomId, int userId)
-    {
-        return await _userService.JoinToRoom(roomId, userId);
-    }
 }

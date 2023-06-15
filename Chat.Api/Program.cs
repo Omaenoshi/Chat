@@ -1,3 +1,4 @@
+using Chat.Api.Middlewares;
 using Chat.Database;
 using Chat.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -26,6 +27,9 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseSwaggerUI(c => { c.SwaggerEndpoint("/myApi/swagger/v1/swagger.json", "V1 Docs"); });
+
+app.UseWebSockets();
+app.UseMiddleware<WebSocketMiddleware>();
 
 app.UseRouting();
 

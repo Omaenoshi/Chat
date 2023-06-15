@@ -13,11 +13,31 @@
             </div>
         }
     </div>
-    <form method="post">
-        <p>
-            <label>Введите текст сообщения: </label><br/>
-            <input name="text"/>
-        </p>
-        <input type="submit" value="Отправить"/>
-    </form>
+    <div>
+        <input id="sendmessage" type="button" value="Send!" />
+        <input id="messageTextInput" type="text" />
+    </div>
+
+    <script>
+        let webSocket
+        var getWebSocketMessages = function (onMessageReceived) {
+            let url = window.location.href
+            webSocket = new WebSocket(url.replace("https", "ws"));
+
+            webSocket.onmessage = onMessageReceived;
+        };
+
+        let ulElement = document.getElementById('chatMessages');
+
+        getWebSocketMessages(function (message) {
+            ulElement.innerHTML = ulElement.innerHTML += `<li>${message.data}</li>`
+        });
+
+        document.getElementById("sendmessage").addEventListener("click", function () {
+            let textElement = document.getElementById("messageTextInput");
+            let text = textElement.value;
+            webSocket.send(text);
+            textElement.value = '';
+        });
+    </script>
 }
