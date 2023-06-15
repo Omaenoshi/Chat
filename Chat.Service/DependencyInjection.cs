@@ -13,7 +13,7 @@ public static class DependencyInjection
         services.AddTransient<IRoomService, RoomService>();
         services.AddTransient<IMessageService, MessageService>();
         services.AddTransient<WebSocketHandler, WebSocketHandler>();
-        services.AddTransient<WebSocketConnectionManager, WebSocketConnectionManager>();
+        services.AddSingleton<WebSocketConnectionManager, WebSocketConnectionManager>();
         return services;
     }
 }

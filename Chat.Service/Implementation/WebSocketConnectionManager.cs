@@ -5,46 +5,40 @@ namespace Chat.Service.Implementation
 {
     public class WebSocketConnectionManager
     {
-        private readonly ConcurrentDictionary<string, WebSocket> _sockets = new ConcurrentDictionary<string, WebSocket>();
+        private readonly ConcurrentDictionary<int, List<WebSocket>> _sockets = new ConcurrentDictionary<int, List<WebSocket>>();
 
-        public void AddSocket(WebSocket socket)
+        public void AddWebSocket(int key, WebSocket socket)
         {
-            _sockets.TryAdd(CreateConnectionId(), socket);
-        }
-
-        public void RemoveSocket(WebSocket socket)
-        {
-            var connectionId = GetConnectionId(socket);
-            _sockets.TryRemove(connectionId, out _);
-        }
-
-        public WebSocket GetSocketById(string connectionId)
-        {
-            _sockets.TryGetValue(connectionId, out WebSocket socket);
-            return socket;
-        }
-
-        public ConcurrentDictionary<string, WebSocket> GetAllSockets()
-        {
-            return _sockets;
-        }
-
-        private string GetConnectionId(WebSocket socket)
-        {
-            foreach (var item in _sockets)
+            if (!_sockets.ContainsKey(key))
             {
-                if (item.Value == socket)
-                {
-                    return item.Key;
-                }
+                _sockets.TryAdd(key, new List<WebSocket>());
             }
 
-            return string.Empty;
+            if (!_sockets[key].Contains(socket))
+                _sockets[key].Add(socket);
         }
 
-        private string CreateConnectionId()
+        public void RemoveWebSocket(int key, WebSocket socket)
         {
-            return Guid.NewGuid().ToString();
+            if (_sockets.ContainsKey(key))
+            {
+                _sockets[key].Remove(socket);
+
+                if (_sockets[key].Count == 0)
+                {
+                    _sockets.TryRemove(key, out _);
+                }
+            }
+        }
+
+        public List<WebSocket> GetAllSocketsByKey(int key)
+        {
+            if (_sockets.ContainsKey(key))
+            {
+                return _sockets[key];
+            }
+
+            return null;
         }
     }
 }

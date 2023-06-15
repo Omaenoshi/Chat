@@ -14,13 +14,11 @@ public class MessageController : Controller
 {
     private readonly IMessageService _messageService;
     private readonly WebSocketHandler _webSocketHandler;
-    private readonly WebSocketConnectionManager _webSocketConnectionManager;
 
-    public MessageController(IMessageService messageService, WebSocketHandler webSocketHandler, WebSocketConnectionManager webSocketConnectionManager)
+    public MessageController(IMessageService messageService, WebSocketHandler webSocketHandler)
     {
         _messageService = messageService;
         _webSocketHandler = webSocketHandler;
-        _webSocketConnectionManager = webSocketConnectionManager;
     }
 
     [Authorize]

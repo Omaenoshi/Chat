@@ -24,7 +24,7 @@ namespace Chat.Service.Implementation
 
         public async Task OnConnectedAsync(WebSocket socket, int userId, int roomId, string username)
         {
-            _connectionManager.AddSocket(socket);
+            _connectionManager.AddWebSocket(roomId, socket);
 
             while (socket.State == WebSocketState.Open)
             {
@@ -34,6 +34,7 @@ namespace Chat.Service.Implementation
 
                 if (!message.Equals(""))
                     await _messageService.CreateMessage(userId, roomId, message);
+               
 
                 var data = new
                 {
@@ -43,16 +44,22 @@ namespace Chat.Service.Implementation
 
                 var json = JsonSerializer.Serialize(data);
 
-                await SendMessageAsync(socket, json);
+                if (!message.Equals(""))
+                    await SendMessageAsync(roomId, json);
             }
 
-            _connectionManager.RemoveSocket(socket);
+            _connectionManager.RemoveWebSocket(roomId, socket);
         }
 
-        public async Task SendMessageAsync(WebSocket socket, string message)
+        public async Task SendMessageAsync(int roomId, string message)
         {
-            var buffer = System.Text.Encoding.UTF8.GetBytes(message);
-            await socket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+            var sockets = _connectionManager.GetAllSocketsByKey(roomId);
+
+            foreach(var socket in sockets)
+            {
+                var buffer = System.Text.Encoding.UTF8.GetBytes(message);
+                await socket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+            }
         }
     }
 }
