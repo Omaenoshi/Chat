@@ -1,4 +1,3 @@
-using Chat.Api.Middlewares;
 using Chat.Database;
 using Chat.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;

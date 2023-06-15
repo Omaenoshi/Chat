@@ -32,7 +32,8 @@ namespace Chat.Service.Implementation
                 var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                 var message = System.Text.Encoding.UTF8.GetString(buffer, 0, result.Count);
 
-                await _messageService.CreateMessage(userId, roomId, message);
+                if (!message.Equals(""))
+                    await _messageService.CreateMessage(userId, roomId, message);
 
                 var data = new
                 {

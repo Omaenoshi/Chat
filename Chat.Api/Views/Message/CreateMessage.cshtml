@@ -13,7 +13,7 @@
             </div>
         }
     </div>
-    <div>
+    <div id="messages">
         <input id="sendmessage" type="button" value="Send!" />
         <input id="messageTextInput" type="text" />
     </div>
@@ -26,6 +26,16 @@
         };
         socket.onmessage = function (event) {
             console.log("WebSocket message received:", event.data);
+            let data = JSON.parse(event.data);
+            let messages = document.getElementById("messages");
+
+            let username = document.createElement("h5");
+            username.innerText = data.username;
+            let text = document.createElement("div");
+            text.innerText = data.message;
+
+            messages.appendChild(username);
+            messages.appendChild(text);
         };
         socket.onclose = function (event) {
             console.log("WebSocket closed.");
