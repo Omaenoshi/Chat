@@ -1,13 +1,108 @@
 ﻿@model Chat.Api.ViewModels.RegisterModel
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Register";
 }
 
-<h2>Регистрация</h2>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Registration Page</title>
+    <style>
+      /* Общие стили */
+      * {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      
+      body {
+        background-color: #f2f2f2;
+      }
+      
+      /* Стили формы */
+      .form-container {
+        max-width: 500px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      .form-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      .form-container input[type=text],
+            .form-container input[type=text],
+      .form-container input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      
+      #reg {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+        #reg:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+        <h2>Форма регистрации</h2>
+        @using (Html.BeginForm())
+        {
+            <div>
+                <h4>Регистрация</h4>
+                <hr/>
+                <div>
+                    <label for="name">Имя</label>
+                    <div id="name" name="name" placeholder="Enter your name" required>
+                        @Html.EditorFor(model => model.Name)
+                    </div>
+                </div>
+                <div>
+                    <label for="login">Логин</label>
+                    <div id="login" name="login" placeholder="Enter your login" required>
+                        @Html.EditorFor(model => model.Login)
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password">Пароль</label>
+                    <div id="password" name="password" placeholder="Enter your password" required>
+                        @Html.EditorFor(model => model.Password)
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input id="reg" type="submit" value="Зарегистрироваться"/>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+  </body>
+</html>
+@*<h2>Регистрация</h2>*@
 
 
-@using (Html.BeginForm())
+@*@using (Html.BeginForm())
 {
     <div>
         <h4>Регистрация</h4>
@@ -38,4 +133,4 @@
             </div>
         </div>
     </div>
-}
+}*@

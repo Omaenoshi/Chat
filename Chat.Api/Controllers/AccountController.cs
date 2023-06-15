@@ -29,17 +29,23 @@ namespace Chat.Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            var user = await _userService.GetUserByLoginAndPassword(model.Login, model.Password);
+            if (user != null)
             {
-                var user = await _userService.GetUserByLoginAndPassword(model.Login, model.Password);
-                if (user != null)
-                {
-                    await Authenticate(model.Login, user.Id);
-                    return RedirectToAction("Index", "Home");
-                }
-
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                await Authenticate(model.Login, user.Id);
+                return RedirectToAction("Index", "Home");
             }
+            //if (ModelState.IsValid)
+            //{
+            //    var user = await _userService.GetUserByLoginAndPassword(model.Login, model.Password);
+            //    if (user != null)
+            //    {
+            //        await Authenticate(model.Login, user.Id);
+            //        return RedirectToAction("Index", "Home");
+            //    }
+
+            //    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+            //}
 
             return View(model);
         }
@@ -89,7 +95,7 @@ namespace Chat.Api.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "User");
+            return RedirectToAction("Login", "Account");
         }
     }
 }
