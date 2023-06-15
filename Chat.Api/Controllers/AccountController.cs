@@ -35,17 +35,6 @@ namespace Chat.Api.Controllers
                 await Authenticate(model.Login, user.Id);
                 return RedirectToAction("Index", "Home");
             }
-            //if (ModelState.IsValid)
-            //{
-            //    var user = await _userService.GetUserByLoginAndPassword(model.Login, model.Password);
-            //    if (user != null)
-            //    {
-            //        await Authenticate(model.Login, user.Id);
-            //        return RedirectToAction("Index", "Home");
-            //    }
-
-            //    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
-            //}
 
             return View(model);
         }
